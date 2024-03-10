@@ -1,0 +1,403 @@
+[
+    {
+      "origin": "New York",
+      "destination": "Los Angeles",
+      "airline": "American Airlines",
+      "available_seats": 200,
+      "connections": 0,
+      "ticket_price": 300
+    },
+    {
+      "origin": "New York",
+      "destination": "Chicago",
+      "airline": "United Airlines",
+      "available_seats": 150,
+      "connections": 0,
+      "ticket_price": 200
+    },
+    {
+      "origin": "New York",
+      "destination": "Miami",
+      "airline": "Delta Airlines",
+      "available_seats": 180,
+      "connections": 0,
+      "ticket_price": 350
+    },
+    {
+      "origin": "Los Angeles",
+      "destination": "San Francisco",
+      "airline": "Southwest Airlines",
+      "available_seats": 120,
+      "connections": 0,
+      "ticket_price": 150
+    },
+    {
+      "origin": "Los Angeles",
+      "destination": "Las Vegas",
+      "airline": "JetBlue Airways",
+      "available_seats": 100,
+      "connections": 0,
+      "ticket_price": 250
+    },
+    {
+      "origin": "Chicago",
+      "destination": "Houston",
+      "airline": "American Airlines",
+      "available_seats": 160,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "Chicago",
+      "destination": "Denver",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 0,
+      "ticket_price": 220
+    },
+    {
+      "origin": "Miami",
+      "destination": "Orlando",
+      "airline": "Delta Airlines",
+      "available_seats": 170,
+      "connections": 0,
+      "ticket_price": 180
+    },
+    {
+      "origin": "Miami",
+      "destination": "Atlanta",
+      "airline": "JetBlue Airways",
+      "available_seats": 190,
+      "connections": 0,
+      "ticket_price": 320
+    },
+    {
+      "origin": "San Francisco",
+      "destination": "Seattle",
+      "airline": "Alaska Airlines",
+      "available_seats": 130,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "San Francisco",
+      "destination": "New York",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 1,
+      "ticket_price": 400
+    },
+    {
+      "origin": "Las Vegas",
+      "destination": "New York",
+      "airline": "Delta Airlines",
+      "available_seats": 150,
+      "connections": 1,
+      "ticket_price": 380
+    },
+    {
+      "origin": "Houston",
+      "destination": "Los Angeles",
+      "airline": "American Airlines",
+      "available_seats": 160,
+      "connections": 0,
+      "ticket_price": 350
+    },
+    {
+      "origin": "Houston",
+      "destination": "Chicago",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 0,
+      "ticket_price": 250
+    },
+    {
+      "origin": "Orlando",
+      "destination": "Miami",
+      "airline": "Delta Airlines",
+      "available_seats": 170,
+      "connections": 0,
+      "ticket_price": 180
+    },
+    {
+      "origin": "Orlando",
+      "destination": "Atlanta",
+      "airline": "JetBlue Airways",
+      "available_seats": 190,
+      "connections": 0,
+      "ticket_price": 320
+    },
+    {
+      "origin": "Seattle",
+      "destination": "San Francisco",
+      "airline": "Alaska Airlines",
+      "available_seats": 130,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "Seattle",
+      "destination": "New York",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 1,
+      "ticket_price": 400
+    },
+    {
+      "origin": "Denver",
+      "destination": "New York",
+      "airline": "Delta Airlines",
+      "available_seats": 150,
+      "connections": 1,
+      "ticket_price": 380
+    },
+    {
+      "origin": "Boston",
+      "destination": "Los Angeles",
+      "airline": "American Airlines",
+      "available_seats": 200,
+      "connections": 0,
+      "ticket_price": 300
+    },
+    {
+      "origin": "Boston",
+      "destination": "Chicago",
+      "airline": "United Airlines",
+      "available_seats": 150,
+      "connections": 0,
+      "ticket_price": 200
+    },
+    {
+      "origin": "Boston",
+      "destination": "Miami",
+      "airline": "Delta Airlines",
+      "available_seats": 180,
+      "connections": 0,
+      "ticket_price": 350
+    },
+    {
+      "origin": "Portland",
+      "destination": "San Francisco",
+      "airline": "Southwest Airlines",
+      "available_seats": 120,
+      "connections": 0,
+      "ticket_price": 150
+    },
+    {
+      "origin": "Portland",
+      "destination": "Las Vegas",
+      "airline": "JetBlue Airways",
+      "available_seats": 100,
+      "connections": 0,
+      "ticket_price": 250
+    },
+    {
+      "origin": "Philadelphia",
+      "destination": "Houston",
+      "airline": "American Airlines",
+      "available_seats": 160,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "Philadelphia",
+      "destination": "Denver",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 0,
+      "ticket_price": 220
+    },
+    {
+      "origin": "Washington D.C.",
+      "destination": "Orlando",
+      "airline": "Delta Airlines",
+      "available_seats": 170,
+      "connections": 0,
+      "ticket_price": 180
+    },
+    {
+      "origin": "Washington D.C.",
+      "destination": "Atlanta",
+      "airline": "JetBlue Airways",
+      "available_seats": 190,
+      "connections": 0,
+      "ticket_price": 320
+    },
+    {
+      "origin": "San Diego",
+      "destination": "Seattle",
+      "airline": "Alaska Airlines",
+      "available_seats": 130,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "San Diego",
+      "destination": "New York",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 1,
+      "ticket_price": 400
+    },
+    {
+      "origin": "Phoenix",
+      "destination": "New York",
+      "airline": "Delta Airlines",
+      "available_seats": 150,
+      "connections": 1,
+      "ticket_price": 380
+    },
+    {
+      "origin": "Detroit",
+      "destination": "Los Angeles",
+      "airline": "American Airlines",
+      "available_seats": 160,
+      "connections": 0,
+      "ticket_price": 350
+    },
+    {
+      "origin": "Detroit",
+      "destination": "Chicago",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 0,
+      "ticket_price": 250
+    },
+    {
+      "origin": "Dallas",
+      "destination": "Miami",
+      "airline": "Delta Airlines",
+      "available_seats": 170,
+      "connections": 0,
+      "ticket_price": 180
+    },
+    {
+      "origin": "Dallas",
+      "destination": "Atlanta",
+      "airline": "JetBlue Airways",
+      "available_seats": 190,
+      "connections": 0,
+      "ticket_price": 320
+    },
+    {
+      "origin": "Austin",
+      "destination": "San Francisco",
+      "airline": "Southwest Airlines",
+      "available_seats": 120,
+      "connections": 0,
+      "ticket_price": 150
+    },
+    {
+      "origin": "Austin",
+      "destination": "Las Vegas",
+      "airline": "JetBlue Airways",
+      "available_seats": 100,
+      "connections": 0,
+      "ticket_price": 250
+    },
+    {
+      "origin": "San Jose",
+      "destination": "Houston",
+      "airline": "American Airlines",
+      "available_seats": 160,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "San Jose",
+      "destination": "Denver",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 0,
+      "ticket_price": 220
+    },
+    {
+      "origin": "Indianapolis",
+      "destination": "Orlando",
+      "airline": "Delta Airlines",
+      "available_seats": 170,
+      "connections": 0,
+      "ticket_price": 180
+    },
+    {
+      "origin": "Indianapolis",
+      "destination": "Atlanta",
+      "airline": "JetBlue Airways",
+      "available_seats": 190,
+      "connections": 0,
+      "ticket_price": 320
+    },
+    {
+      "origin": "Charlotte",
+      "destination": "Seattle",
+      "airline": "Alaska Airlines",
+      "available_seats": 130,
+      "connections": 0,
+      "ticket_price": 280
+    },
+    {
+      "origin": "Charlotte",
+      "destination": "New York",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 1,
+      "ticket_price": 400
+    },
+    {
+      "origin": "Nashville",
+      "destination": "New York",
+      "airline": "Delta Airlines",
+      "available_seats": 150,
+      "connections": 1,
+      "ticket_price": 380
+    },
+    {
+      "origin": "Memphis",
+      "destination": "Los Angeles",
+      "airline": "American Airlines",
+      "available_seats": 160,
+      "connections": 0,
+      "ticket_price": 350
+    },
+    {
+      "origin": "Memphis",
+      "destination": "Chicago",
+      "airline": "United Airlines",
+      "available_seats": 140,
+      "connections": 0,
+      "ticket_price": 250
+    },
+    {
+      "origin": "Baltimore",
+      "destination": "Miami",
+      "airline": "Delta Airlines",
+      "available_seats": 170,
+      "connections": 0,
+      "ticket_price": 180
+    },
+    {
+      "origin": "Baltimore",
+      "destination": "Atlanta",
+      "airline": "JetBlue Airways",
+      "available_seats": 190,
+      "connections": 0,
+      "ticket_price": 320
+    },
+    {
+      "origin": "Jacksonville",
+      "destination": "San Francisco",
+      "airline": "Southwest Airlines",
+      "available_seats": 120,
+      "connections": 0,
+      "ticket_price": 150
+    },
+    {
+      "origin": "Jacksonville",
+      "destination": "Las Vegas",
+      "airline": "JetBlue Airways",
+      "available_seats": 100,
+      "connections": 0,
+      "ticket_price": 250
+    }
+  ]
+  

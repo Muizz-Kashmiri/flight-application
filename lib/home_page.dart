@@ -38,21 +38,32 @@ class _MyHomePageState extends State<MyHomePage> {
   };
 
   String _directions = '';
+  bool _isLoadingDirections = false; // Flag to track if directions are loading
 
   @override
   void initState() {
     super.initState();
     _initHive();
-    _generateAccessToken(); // Generate access token on initialization
+    _initializeAccessToken(); // Call a new method to initialize access token
     _fetchConversionRates();
+  }
+
+  Future<void> _initializeAccessToken() async {
+    try {
+      accessToken = await _generateAccessToken(); // Await for the access token
+    } catch (e) {
+      print('Error initializing access token: $e');
+    }
   }
 
   Future<void> getDirections(double sourceLat, double sourceLng,
       double destinationLat, double destinationLng) async {
     try {
+      accessToken = await _generateAccessToken(); // Update accessToken
+
       var aPIKey = Constants.mapQuestAPI;
       var url =
-          "https://www.mapquestapi.com/directions/v2/optimizedroute?key=$aPIKey&json={\"locations\":[\"${sourceLat},${destinationLng}\",\"${destinationLat},${sourceLng}\"]}";
+          "https://www.mapquestapi.com/directions/v2/optimizedroute?key=$aPIKey&json={\"locations\":[\"${sourceLat},${sourceLng}\",\"${destinationLat},${destinationLng}\"]}";
 
       var uri = Uri.parse(url);
       final response = await http.get(uri);
@@ -77,14 +88,19 @@ class _MyHomePageState extends State<MyHomePage> {
             _directions = directions;
           });
         } else {
-          throw Exception('Invalid response format');
+          throw Exception('Invalid response format: ${response.body}');
         }
       } else {
-        throw Exception('Failed to load Locations');
+        throw Exception('Failed to load directions: ${response.statusCode}');
       }
     } catch (e) {
       print("Exception thrown: $e");
       throw e;
+    } finally {
+      setState(() {
+        _isLoadingDirections =
+            false; // Set loading flag to false regardless of success or failure
+      });
     }
   }
 
@@ -187,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
-  Future<void> _generateAccessToken() async {
+  Future<String> _generateAccessToken() async {
     try {
       String clientId = Constants.apiKey;
       String clientSecret = Constants.apiSecret;
@@ -203,12 +219,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = json.decode(response.body);
-        accessToken = data['access_token'];
+        return data['access_token'];
       } else {
         throw Exception('Failed to generate access token');
       }
     } catch (e) {
       print('Error generating access token: $e');
+      throw e;
     }
   }
 
@@ -240,7 +257,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
         // Delay the navigation to allow time for the snack bar to be dismissed
         await Future.delayed(const Duration(seconds: 1));
-        // await _generateAccessToken();
+
+        // Get the coordinates for the selected destination city
+        var destinationCoordinates = await getCoordinates(flight.destination);
+        double? destinationLat = destinationCoordinates['lat'];
+        double? destinationLng = destinationCoordinates['lng'];
+        print("Destination Coordinates: $destinationLat, $destinationLng");
         // Navigate to the flight details page
         Navigator.push(
           context,
@@ -264,9 +286,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Future<Map<String, double>> getCoordinates(
-      String location, String accessToken) async {
+  Future<Map<String, double>> getCoordinates(String location) async {
     try {
+      String accessToken =
+          await _generateAccessToken(); // Get fresh access token
       var response = await http.get(Uri.parse(
           'https://api.opencagedata.com/geocode/v1/json?q=${location}&key=${Constants.geoCodeApi}'));
 
@@ -286,6 +309,32 @@ class _MyHomePageState extends State<MyHomePage> {
       print('Error fetching coordinates: $e');
       throw e;
     }
+  }
+
+  List<Widget> _buildDirectionCards() {
+    List<Widget> directionCards = [];
+    List<String> directionsList = _directions.split('\n');
+
+    for (int i = 0; i < directionsList.length; i++) {
+      String direction = directionsList[i].trim();
+      if (direction.isNotEmpty) {
+        directionCards.add(
+          Card(
+            elevation: 2,
+            margin: const EdgeInsets.symmetric(vertical: 5),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '$i. $direction',
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        );
+      }
+    }
+
+    return directionCards;
   }
 
   @override
@@ -390,16 +439,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       if (accessToken.isNotEmpty) {
                         // Get the coordinates for the selected source city
-                        var sourceCoordinates = await getCoordinates(
-                            _selectedSourceCity!, accessToken);
+                        var sourceCoordinates =
+                            await getCoordinates(_selectedSourceCity!);
                         double? sourceLat = sourceCoordinates['lat'];
                         double? sourceLng = sourceCoordinates['lng'];
 
                         // Get the coordinates for the selected destination city
-                        var destinationCoordinates = await getCoordinates(
-                            _selectedDestinationCity!, accessToken);
+                        var destinationCoordinates =
+                            await getCoordinates(_selectedDestinationCity!);
                         destinationLat = destinationCoordinates['lat'];
                         destinationLng = destinationCoordinates['lng'];
+
+                        setState(() {
+                          _isLoadingDirections =
+                              true; // Set loading flag to true
+                        });
 
                         // Call the method to fetch directions
                         await getDirections(sourceLat!, sourceLng!,
@@ -412,29 +466,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
                   }
                 },
-                child: const Text('Get Directions'),
+                child: Text(_isLoadingDirections
+                    ? 'Fetching Directions...'
+                    : 'Get Directions'),
               ),
 
-              // Display the directions
+              // Display the directions or the loading indicator
               const SizedBox(height: 20),
               Expanded(
                 child: SingleChildScrollView(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20.0),
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Text(
-                        _directions.isNotEmpty
-                            ? 'Directions:\n$_directions'
-                            : 'Directions will be displayed here',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
+                  child: _isLoadingDirections
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Column(
+                          children: _directions.isNotEmpty
+                              ? _buildDirectionCards()
+                              : [
+                                  const SizedBox(height: 20),
+                                  const Text(
+                                      'Directions will be displayed here'),
+                                ],
+                        ),
                 ),
               ),
 

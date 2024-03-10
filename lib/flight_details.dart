@@ -10,8 +10,8 @@ class FlightDetails extends StatefulWidget {
   final double ticketPrice;
   final String accessToken;
   final String currency;
-  final double? destinationLat; // Declare nullable variable
-  final double? destinationLng; // Declare nullable variable
+  final double? destinationLat;
+  final double? destinationLng;
 
   const FlightDetails({
     Key? key,
@@ -20,8 +20,8 @@ class FlightDetails extends StatefulWidget {
     required this.ticketPrice,
     required this.accessToken,
     required this.currency,
-    required this.destinationLat, // Receive latitude from previous page
-    required this.destinationLng, // Receive longitude from previous page
+    required this.destinationLat,
+    required this.destinationLng,
   }) : super(key: key);
 
   @override
@@ -31,18 +31,22 @@ class FlightDetails extends StatefulWidget {
 class _FlightDetailsState extends State<FlightDetails> {
   List<String> attractions = [];
   bool isLoading = true;
-  int availableSeats = 10; // Example initial value
-  String myAccessToken = '';
+  int availableSeats = 10;
+  late String myAccessToken; // Changed to non-nullable
 
   @override
   void initState() {
     super.initState();
-    _generateAccessToken();
-    getAttractions(
-        widget.destinationLat, widget.destinationLng, widget.accessToken);
+    _generateAccessToken().then((token) {
+      myAccessToken = token;
+      getAttractions(
+          widget.destinationLat, widget.destinationLng, myAccessToken);
+    }).catchError((error) {
+      print('Error initializing flight details: $error');
+    });
   }
 
-  Future<void> _generateAccessToken() async {
+  Future<String> _generateAccessToken() async {
     try {
       String clientId = Constants.apiKey;
       String clientSecret = Constants.apiSecret;
@@ -58,28 +62,28 @@ class _FlightDetailsState extends State<FlightDetails> {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = json.decode(response.body);
-        setState(() {
-          myAccessToken = data['access_token'];
-        });
+        return data['access_token'];
       } else {
         throw Exception('Failed to generate access token');
       }
     } catch (e) {
       print('Error generating access token: $e');
+      throw e;
     }
   }
 
   Future<void> getAttractions(
-      double? lat, double? lng, String myAccessToken) async {
+      double? lat, double? lng, String accessToken) async {
     try {
+      // Adjust the radius parameter to 5 kilometers
       String apiUrl =
-          'https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=${lat}&longitude=${lng}&radius=1&page%5Blimit%5D=10&page%5Boffset%5D=0';
+          'https://test.api.amadeus.com/v1/reference-data/locations/pois?latitude=${lat}&longitude=${lng}&radius=5&page%5Blimit%5D=10&page%5Boffset%5D=0';
 
-      // print('Request URL: $apiUrl'); // Debugging line
-      // print('Access Token: $accessToken'); // Debugging line
+      print('Request URL: $apiUrl'); // Debugging line
+      print('Access Token: $accessToken'); // Debugging line
 
       final response = await http.get(Uri.parse(apiUrl), headers: {
-        'Authorization': 'Bearer $myAccessToken',
+        'Authorization': 'Bearer $accessToken',
       });
 
       if (response.statusCode == 200) {
@@ -109,7 +113,6 @@ class _FlightDetailsState extends State<FlightDetails> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        // remove all the previous routes
         Navigator.of(context).popUntil((route) => route.isFirst);
         return true;
       },
