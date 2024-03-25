@@ -1,8 +1,11 @@
 class Constants {
-  static const apiKey = "UQti6YuQaUCq4JkooHjuVwoC3Z4eGtAi";
-  static const apiSecret = "j3CvAyuGIKrXBuao";
+  // amadeus free api
+  static const apiKey = "";
+  static const apiSecret = "";
 
-  static const geoCodeApi = "f3e69e8e365f4cf5b9d33f0d54ee7f27";
+  // openCageData Api for geocoding
+  static const geoCodeApi = "";
 
-  static const mapQuestAPI = "Bv8ugTxew6GGcYzzIAzbtZIvooMbzhuS";
+  // mapquest api to get directions
+  static const mapQuestAPI = "";
 }
